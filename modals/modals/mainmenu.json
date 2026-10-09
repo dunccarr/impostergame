@@ -1,0 +1,8 @@
+{
+    "title": "Welcome to Imposter!",
+    "options": [
+        "Begin Game",
+        "Instructions",
+        "Quit"
+    ]
+}
