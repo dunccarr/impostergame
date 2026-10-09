@@ -8,8 +8,8 @@ _alternate_screen_active = False
 def changeterminal():
     global _alternate_screen_active
 
-    if not sys.stdout.isatty():
-        raise RuntimeError("A terminal is required to securely display player words.")
+    if not hasattr(sys.stdout, "isatty") or not sys.stdout.isatty():
+        return
 
     system = platform.system()
     if system not in ("Windows", "Darwin", "Linux"):
@@ -25,16 +25,23 @@ def changeterminal():
 def getwords(possiblewords, playerdatabase, playercount):
     global _alternate_screen_active
 
+    if not possiblewords:
+        raise ValueError("No possible words are available.")
+
     selected = random.choice(possiblewords)
     word, hint = next(iter(selected.items()))
 
     try:
         for i in range(1, playercount + 1):
             changeterminal()
-            print(f"Pass the device to {playerdatabase[i]['name']}")
+            player = playerdatabase.get(i)
+            if player is None:
+                continue
+
+            print(f"Pass the device to {player['name']}")
             input("Press enter to continue...\t")
 
-            if playerdatabase[i]["imposter"]:
+            if player["imposter"]:
                 print()
                 print(f"You are the imposter! Your hint is '{hint}'.")
                 input("Once you have memorized your hint, press enter...\t")
