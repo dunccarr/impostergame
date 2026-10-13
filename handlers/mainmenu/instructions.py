@@ -1,4 +1,4 @@
-def handlers_mainmenu_instructions():
+def instructions():
     print()
     print()
     print("Imposter Game Instructions - Before the Round")

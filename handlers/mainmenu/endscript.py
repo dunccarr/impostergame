@@ -1,3 +1,3 @@
-def handlers_mainmenu_quit():
+def endscript():
     import sys
     sys.exit(0)

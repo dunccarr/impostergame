@@ -16,36 +16,36 @@ def main():
 
         case 2:
             # show instructions
-            from handlers.mainmenu.instructions import handlers_mainmenu_instructions
-            handlers_mainmenu_instructions()
+            from handlers.mainmenu.instructions import instructions
+            instructions()
 
             # main menu with no instructions
-            main_menu_no_instructions_path = Path(__file__).parent / "modals" / "modals" / "mainmenu2.json"
-            main_menu_no_instructions = Modal(main_menu_no_instructions_path)
+            main_menu2_path = Path(__file__).parent / "modals" / "modals" / "mainmenu2.json"
+            main_menu_2 = Modal(main_menu2_path)
 
-            match main_menu_no_instructions.render():
+            match main_menu_2.render():
                 case 1:
                     # start new game
                     pass
 
                 case 2:
                     # quit
-                    from handlers.mainmenu.quit import handlers_mainmenu_quit
-                    handlers_mainmenu_quit()
+                    from handlers.mainmenu.endscript import endscript
+                    endscript()
 
         case 3:
-            from handlers.mainmenu.quit import handlers_mainmenu_quit
-            handlers_mainmenu_quit()
+            from handlers.mainmenu.endscript import endscript
+            endscript()
 
     # game setup
 
     # get player count input
-    from handlers.game.playercount import getplayercount
+    from handlers.player.playercount import getplayercount
     player_count = getplayercount(config.MIN_PLAYERS, config.MAX_PLAYERS)
     config.PlayerCount = player_count
 
     # get players input
-    from handlers.game.players import getplayers
+    from handlers.player.players import getplayers
     players = getplayers(config.PlayerCount)
 
     # add players to the player database
@@ -57,12 +57,12 @@ def main():
         }
 
     # get imposter count
-    from handlers.game.impostercount import getimpostercount
+    from handlers.imposter.impostercount import getimpostercount
     imposters = getimpostercount(config.PlayerCount)
     config.ImposterCount = imposters
 
     # get imposters
-    from handlers.game.imposters import getimposters
+    from handlers.imposter.imposters import getimposters
     imposterids = getimposters(config.PlayerCount, config.ImposterCount)
 
     # add imposter tag to player database
